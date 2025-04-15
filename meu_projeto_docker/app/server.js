@@ -2,32 +2,34 @@ const express = require('express');
 const mysql = require('mysql2');
 const dotenv = require('dotenv');
 
-// Carregar variáveis de ambiente
+// Carregar as variáveis de ambiente
 dotenv.config();
 
 const app = express();
 const port = 3000;
 
-// Criando a conexão com o banco de dados MySQL
+// Configurar a conexão com o MySQL
 const connection = mysql.createConnection({
-  host: process.env.DB_HOST,      // Usando o nome do serviço "db" no Docker Compose
-  user: process.env.DB_USER,      // Usuário do banco de dados
-  password: process.env.DB_PASSWORD,  // Senha do banco de dados
-  database: process.env.DB_NAME   // Nome do banco de dados
+  host: process.env.DB_HOST,         // deve ser "db", conforme definido em .env e docker-compose.yml
+  user: process.env.DB_USER,         // usuário definido no .env (não use "root")
+  password: process.env.DB_PASSWORD, // senha definida no .env
+  database: process.env.DB_NAME      // nome do banco de dados
 });
 
-// Testando a conexão com o banco de dados
+// Tentar conectar ao banco de dados
 connection.connect((err) => {
   if (err) {
-    console.error('Erro ao conectar no banco de dados: ' + err.stack);
+    console.error('Erro ao conectar no banco de dados:', err);
     return;
   }
-  console.log('Conectado ao banco de dados como ID ' + connection.threadId);
+  console.log('Conectado ao banco de dados com ID', connection.threadId);
 });
 
 app.get('/', (req, res) => {
   connection.query('SELECT "Hello, Docker + MySQL!" AS message', (err, results) => {
-    if (err) throw err;
+    if (err) {
+      return res.status(500).send("Erro ao consultar o banco de dados");
+    }
     res.send(`<h1>${results[0].message}</h1>`);
   });
 });
