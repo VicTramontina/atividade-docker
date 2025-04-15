@@ -5,13 +5,13 @@ FROM node:16
 WORKDIR /app
 
 # Copia os arquivos de dependências para dentro do container
-COPY package*.json ./
+COPY app/package*.json ./
 
 # Instala as dependências da aplicação
 RUN npm install
 
 # Copia o restante da aplicação (incluindo o server.js)
-COPY . .
+COPY app/ .
 
 # Expondo a porta 3000 para a aplicação
 EXPOSE 3000
