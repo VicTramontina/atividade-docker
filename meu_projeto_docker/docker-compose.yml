@@ -20,7 +20,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}  # Senha para o usuário root do MySQL
       MYSQL_DATABASE: ${DB_NAME}          # Nome do banco de dados
-      MYSQL_USER: ${DB_USER}              # Nome do usuário para acessar o banco
+      MYSQL_USER: ${DB_USER}              # Para um usuário regular
       MYSQL_PASSWORD: ${DB_PASSWORD}      # Senha para o usuário regular
     volumes:
       - db-data:/var/lib/mysql            # Volume persistente para os dados do banco
