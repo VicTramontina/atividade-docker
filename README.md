@@ -15,7 +15,7 @@ Este projeto é uma aplicação Node.js com MySQL usando Docker e Docker Compose
 1. Clone o repositório.
 2. Navegue até o diretório `meu_projeto_docker`.
 3. Crie um arquivo `.env` com as variáveis de ambiente necessárias, conforme o exemplo em `meu_projeto_docker/.env`.
-4. Execute o comando `docker-compose up` para iniciar os serviços.
+4. Execute o comando `docker-compose up --build` para iniciar os serviços.
 5. Acesse `http://localhost:8080` no seu navegador para ver a aplicação em execução.
 
 ## Dependências
