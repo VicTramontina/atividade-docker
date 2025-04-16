@@ -4,33 +4,24 @@ services:
   web:
     build: .
     ports:
-      - "8080:3000"    # Mapeia a porta 3000 do contêiner para a porta 8080 do host
+      - "8080:3000"
     depends_on:
-      - db             # Garante que o serviço db seja iniciado antes do web
+      - db
     environment:
-      - DB_HOST=db     # Host para conexão com o MySQL, corresponde ao nome do serviço "db"
+      - DB_HOST=db
       - DB_NAME=${DB_NAME}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
-    networks:
-      - app-network
 
   db:
-    image: mysql:8.0
+    image: postgres:14
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}  # Configura a senha do usuário root
-      MYSQL_DATABASE: ${DB_NAME}          # Cria o banco de dados automaticamente
-      MYSQL_USER: ${DB_USER}              # Cria um usuário regular (não-root)
-      MYSQL_PASSWORD: ${DB_PASSWORD}      # Senha para o usuário regular
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - db-data:/var/lib/mysql            # Volume para persistência dos dados do MySQL
-    networks:
-      - app-network
+      - pgdata:/var/lib/postgresql/data
 
 volumes:
-  db-data:
-    driver: local
-
-networks:
-  app-network:
-    driver: bridge
+  pgdata:
