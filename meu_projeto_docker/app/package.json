@@ -1,14 +1,16 @@
 {
-  "name": "nodejs-mysql-app",
+  "name": "meu_projeto_docker",
   "version": "1.0.0",
-  "description": "Aplicação Node.js com MySQL",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
+  "description": "Projeto Node.js com PostgreSQL e Docker",
+  "main": "app.js",
   "dependencies": {
     "express": "^4.17.1",
-    "mysql2": "^2.2.5",
-    "dotenv": "^10.0.0"
-  }
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC"
 }
